@@ -276,7 +276,7 @@ def main():
         return
     
     # 获取 API 密钥
-    api_key = args.api_key or "AIzaSyDhuvyZS5D5jYpoZo2ZoVF41bj9PqCiD6A"  # 使用默认密钥
+    api_key = args.api_key # 使用默认密钥
     
     # 初始化检测器
     detector = GeminiAnomalyDetector(api_key, args.base_url)
