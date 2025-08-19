@@ -27,7 +27,7 @@ model:
   partial_pretrain: ~/models/gemma-1.1-7b-it
   use_shm: False
   fsdp_config:
-    model_dtype: fp32
+    model_dtype: bf16
     wrap_policy:
       min_num_params: 0
     cpu_offload: False
@@ -55,7 +55,7 @@ trainer:
   resume_path: null
   project_name: gsm8k-sft
   experiment_name: test
-  total_epochs: 4
+  total_epochs: 2
   total_training_steps: null
   logger: [ 'console', 'wandb' ]
   seed: 1

@@ -13,7 +13,7 @@ python3 -m verl.trainer.main_ppo \
     data.filter_overlong_prompts=True \
     data.truncation='error' \
     data.shuffle=False \
-    actor_rollout_ref.model.path=Qwen/Qwen2.5-3B-Instruct \
+    actor_rollout_ref.model.path=Qwen/Qwen2.5-0.5B-Instruct \
     actor_rollout_ref.model.use_shm=True \
     actor_rollout_ref.model.lora_rank=64 \
     actor_rollout_ref.model.lora_alpha=32 \

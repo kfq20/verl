@@ -171,8 +171,9 @@ class FSDPSFTTrainer:
         log_gpu_memory_usage("Before model allocation", logger=logger)
 
         trust_remote_code = self.config.model.trust_remote_code
-        torch_dtype = self.config.model.fsdp_config.get("model_dtype", "fp32")
+        torch_dtype = self.config.model.fsdp_config.get("model_dtype", "bf16")
         torch_dtype = PrecisionType.to_dtype(torch_dtype)
+        print(f"\n====Using torch_dtype: {torch_dtype}=================")
         # load config first
         config = AutoConfig.from_pretrained(local_model_path, trust_remote_code=trust_remote_code)
         self.model_config = config
@@ -231,12 +232,15 @@ class FSDPSFTTrainer:
         if self.device_mesh.get_rank() == 0:
             print(auto_wrap_policy)
 
+        print(f"--------------------------------auto_wrap_policy: {auto_wrap_policy}")
         if not self.config.model.fsdp_config.cpu_offload:
             cpu_offload = None
         else:
             cpu_offload = CPUOffload(offload_params=self.config.model.fsdp_config.offload_params)
 
         fsdp_strategy = self.config.model.strategy
+        debug_device_id = get_device_id()
+        print(f"debug_device_id: {debug_device_id}")
         if fsdp_strategy == "fsdp":
             self.fsdp_model = FSDP(
                 self.model,
@@ -253,7 +257,8 @@ class FSDPSFTTrainer:
             )
         elif fsdp_strategy == "fsdp2":
             assert CPUOffloadPolicy is not None, "PyTorch version >= 2.4 is required for using fully_shard API (FSDP2)"
-            mp_policy = MixedPrecisionPolicy(param_dtype=torch.bfloat16, reduce_dtype=torch.float32, cast_forward_inputs=True)
+            print(f"Using bfloat16 mixed precision=================")
+            mp_policy = MixedPrecisionPolicy(param_dtype=torch.bfloat16, reduce_dtype=torch.bfloat16, cast_forward_inputs=True)
 
             fsdp_kwargs = {
                 "mesh": self.device_mesh,

@@ -1,6 +1,8 @@
 
 **/*.pt
 **/checkpoints
+**/detector_sft_7b_output
+**/LLaVA
 **/wget-log
 **/_build/
 **/*.ckpt
@@ -124,3 +126,8 @@ logs
 log
 outputs
 .history
+
+# json data
+*.json
+*.jsonl
+*.whl
