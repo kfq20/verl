@@ -97,7 +97,7 @@ def format_output(output_data):
     formatted_agents = []
     for agent in faulty_agents:
         formatted_agent = {
-            'agent_role': agent.get('agent_role', agent.get('agent_name', '')),
+            'agent_name': agent.get('agent_name', agent.get('agent_role', '')),
             'error_type': agent.get('error_type', '')
         }
         formatted_agents.append(formatted_agent)
