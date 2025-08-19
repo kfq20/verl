@@ -5,12 +5,12 @@ set -x
 
 python3 -m verl.trainer.main_ppo \
     algorithm.adv_estimator=grpo \
-    data.train_files=data/dylan_debate_gsm_math/train.parquet \
-    data.val_files=data/dylan_debate_gsm_math/test.parquet \
+    data.train_files=data/maserror/train.parquet \
+    data.val_files=data/maserror/val.parquet \
     data.prompt_key=prompt \
     data.train_batch_size=4 \
     data.max_prompt_length=8192 \
-    data.max_response_length=1024 \
+    data.max_response_length=128 \
     data.filter_overlong_prompts=True \
     data.truncation='error' \
     data.shuffle=True \
@@ -46,5 +46,5 @@ python3 -m verl.trainer.main_ppo \
     trainer.save_freq=5 \
     trainer.test_freq=2 \
     trainer.total_epochs=3 \
-    custom_reward_function.path=verl/utils/reward_score/detector.py \
+    custom_reward_function.path=verl/utils/reward_score/error_attribution.py \
     custom_reward_function.name=compute_score $@

@@ -45,7 +45,7 @@ def extract_attributions(solution_str: str) -> Optional[Set[Tuple[str, str]]]:
     except (json.JSONDecodeError, TypeError, AttributeError):
         return None
 
-def compute_reward_for_attribution(
+def compute_score(
     solution_str: str, 
     ground_truth: str, 
     pair_credit: float = 1.0,
