@@ -17,8 +17,8 @@ save_path=$2
 
 
 # 数据路径
-TRAIN_DATA="/home/fanqi/verl/data/maserror/converted/train.parquet"
-VAL_DATA="/home/fanqi/verl/data/maserror/converted/val.parquet"
+TRAIN_DATA="/home/fanqi/verl/data/maserror/train.parquet"
+VAL_DATA="/home/fanqi/verl/data/maserror/val.parquet"
 
 # 创建输出目录
 mkdir -p "$save_path"

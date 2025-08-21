@@ -37,8 +37,8 @@ def extract_attributions(solution_str: str) -> Optional[Set[Tuple[str, str]]]:
         
         attribution_set = set()
         for agent_info in faulty_agents:
-            agent_name = agent_info.get("agent_name")
-            error_type = agent_info.get("error_type")
+            agent_name = agent_info.get("agent_name").replace(" ", "").lower()
+            error_type = agent_info.get("error_type").replace(" ", "").lower()
             if agent_name and error_type:
                 attribution_set.add((agent_name, error_type))
         return attribution_set
@@ -70,8 +70,12 @@ def compute_score(
     Returns:
         最终的标量奖励分数。
     """
+    # print(f"[DEBUG] solution_str: {solution_str}")
+    # print(f"[DEBUG] ground_truth: {ground_truth}")
     pred_attributions = extract_attributions(solution_str)
     true_attributions = extract_attributions(ground_truth)
+    # print(f"[DEBUG] pred_attributions: {pred_attributions}")
+    # print(f"[DEBUG] true_attributions: {true_attributions}")
 
     # 如果模型输出格式错误或无法解析，直接返回惩罚分数
     if pred_attributions is None:
@@ -109,4 +113,6 @@ def compute_score(
 
     # 归一化奖励，使其在 [-1, 1] 区间附近，为RL提供稳定信号
     # 注意：如果FP很多，分数可能为负
+    # print(f"[DEBUG] achieved_score: {achieved_score}")
+    # print(f"[DEBUG] max_possible_score: {max_possible_score}")
     return achieved_score / max_possible_score if max_possible_score > 0 else 0.0

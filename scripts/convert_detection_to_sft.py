@@ -100,6 +100,8 @@ def format_output(output_data):
             'agent_name': agent.get('agent_name', agent.get('agent_role', '')),
             'error_type': agent.get('error_type', '')
         }
+        if agent.get('agent_name', agent.get('agent_role', '')) == 'Assistant':
+            print(1)
         formatted_agents.append(formatted_agent)
     
     result = {'faulty_agents': formatted_agents}

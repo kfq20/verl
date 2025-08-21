@@ -33,7 +33,7 @@ def jsonl_to_parquet(jsonl_file, parquet_file):
 def main():
     # 转换训练数据
     jsonl_file = "/home/fanqi/verl/data/maserror/converted/test.jsonl"
-    parquet_file = "/home/fanqi/verl/data/maserror/converted/test.parquet"
+    parquet_file = "/home/fanqi/verl/data/maserror/test.parquet"
     
     jsonl_to_parquet(jsonl_file, parquet_file)
     

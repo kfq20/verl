@@ -206,8 +206,9 @@ class ActorRolloutRefWorker(Worker, WorkerProfilerExtension):
         self.processor = hf_processor(local_path, trust_remote_code=trust_remote_code)
 
         torch_dtype = fsdp_config.get("model_dtype", None)
+        # print(f"========== torch_dtype: {torch_dtype}")
         if torch_dtype is None:
-            torch_dtype = torch.float32 if self._is_actor else torch.bfloat16
+            torch_dtype = torch.bfloat16 if self._is_actor else torch.bfloat16
         else:
             torch_dtype = PrecisionType.to_dtype(torch_dtype)
 
@@ -240,6 +241,7 @@ class ActorRolloutRefWorker(Worker, WorkerProfilerExtension):
             else:
                 actor_module_class = AutoModelForCausalLM
 
+            print(f"========== torch_dtype: {torch_dtype}")
             actor_module = actor_module_class.from_pretrained(
                 pretrained_model_name_or_path=local_path,
                 torch_dtype=torch_dtype,
