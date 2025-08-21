@@ -197,7 +197,7 @@ torch==2.6.0
 torch_memory_saver==0.0.8
 torchaudio==2.6.0
 torchdata==0.11.0
-torchvision==0.21.0
+torchvision==0.23.0
 tqdm==4.67.1
 transformers==4.52.4
 triton==3.2.0
